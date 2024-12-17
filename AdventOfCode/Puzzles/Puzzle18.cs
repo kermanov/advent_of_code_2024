@@ -2,8 +2,6 @@ namespace AdventOfCode.Puzzles;
 
 public class Puzzle18 : PuzzleBase
 {
-    protected override bool ReportProgress => true;
-
     protected override string Solution(string input)
     {
         var diskMap = input.Trim();

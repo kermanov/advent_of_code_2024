@@ -2,57 +2,70 @@ namespace AdventOfCode.Puzzles;
 
 public class Puzzle22 : PuzzleBase
 {
-    override protected bool ReportProgress => true;
+    readonly int _blinks = 75;
 
     protected override string Solution(string input)
     {
-        LinkedList<Stone> stones = new(input.Trim().Split().Select(number => new Stone
-        {
-            Number = long.Parse(number),
-        }));
+        var stones = input.Trim().Split()
+            .Select(long.Parse)
+            .ToArray();
 
-        var blinks = 75;
+        var stonesDict = stones
+            .Distinct()
+            .ToDictionary(number => number, number => (long)stones.Count(stone => stone == number));
 
-        for (var i = 0; i < blinks; i++)
+        for (var i = 0; i < _blinks; i++)
         {
-            Blink(stones);
-            SetProgress((int)Math.Round((i + 1) / (double)blinks * 100));
+            Blink(ref stonesDict);
         }
 
-        return stones.Count.ToString();
+        return stonesDict.Values.Sum().ToString();
     }
 
-    static void Blink(LinkedList<Stone> stones)
+    static void Blink(ref Dictionary<long, long> stones)
     {
-        foreach (var stone in stones)
+        var newStones = new Dictionary<long, long>();
+        var stoneValues = stones.Keys.ToArray();
+
+        foreach (var stone in stoneValues)
         {
-            if (stone.Number == 0)
+            if (stone == 0)
             {
-                stone.Number = 1;
+                SetStoneValue(stones, newStones, 0, 1);
             }
-            else if (stone.Number.ToString().Length % 2 == 0)
+            else if (stone.ToString().Length % 2 == 0)
             {
-                var stringNumber = stone.Number.ToString();
+                var stringNumber = stone.ToString();
                 var stone1 = long.Parse(stringNumber[..(stringNumber.Length / 2)]);
                 var stone2 = long.Parse(stringNumber[(stringNumber.Length / 2)..]);
-                stone.Number = stone1;
-                stones.AddAfter(new LinkedListNode<Stone>(stone), new Stone { Number = stone2 });
-                i++;
+
+                AddStoneCount(newStones, stone1, stones[stone]);
+                AddStoneCount(newStones, stone2, stones[stone]);
             }
             else
             {
-                stones[i] *= 2024;
+                SetStoneValue(stones, newStones, stone, stone * 2024);
             }
+        }
+
+        stones = newStones;
+    }
+
+    static void SetStoneValue(Dictionary<long, long> stones, Dictionary<long, long> newStones, long currentStoneValue, long newStoneValue)
+    {
+        var count = stones[currentStoneValue];
+
+        if (!newStones.TryAdd(newStoneValue, count))
+        {
+            newStones[newStoneValue] += count;
         }
     }
 
-    class Stone
+    static void AddStoneCount(Dictionary<long, long> newStones, long stoneValue, long countToAdd)
     {
-        public long Number { get; set; }
-    }
-
-    class MyLinkedList<T>
-    {
-        
+        if (!newStones.TryAdd(stoneValue, countToAdd))
+        {
+            newStones[stoneValue] += countToAdd;
+        }
     }
 }

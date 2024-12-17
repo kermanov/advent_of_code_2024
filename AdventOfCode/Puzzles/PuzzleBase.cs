@@ -5,6 +5,8 @@ namespace AdventOfCode.Puzzles;
 public abstract class PuzzleBase
 {
     int _progress = 0;
+    string? _executionInfo;
+    bool _progressDrawn;
 
     public async Task Solve(string input)
     {
@@ -37,9 +39,10 @@ public abstract class PuzzleBase
 
             while (true)
             {
-                if (ReportProgress)
+                if (_progress > 0)
                 {
                     DrawProgressBar(_progress);
+                    _progressDrawn = true;
                 }
                 else
                 {
@@ -47,12 +50,17 @@ public abstract class PuzzleBase
                     Console.Write($"\rProcessing... {spinner[spinerPos++ % 4]}");
                 }
 
+                if (_executionInfo != null)
+                {
+                    Console.Write($" | {_executionInfo}");
+                }
+
                 await Task.Delay(100, cancellationToken);
             }
         }
         catch (TaskCanceledException)
         {
-            if (ReportProgress)
+            if (_progressDrawn)
             {
                 DrawProgressBar(100);
             }
@@ -77,6 +85,11 @@ public abstract class PuzzleBase
         {
             _progress = progress;
         }
+    }
+
+    protected void SetExecutionInfo(string info)
+    {
+        _executionInfo = info;
     }
 
     protected abstract string Solution(string input);

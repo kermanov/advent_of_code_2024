@@ -2,8 +2,6 @@ namespace AdventOfCode.Puzzles;
 
 public class Puzzle19 : PuzzleBase
 {
-    protected override bool ReportProgress => true;
-
     protected override string Solution(string input)
     {
         var map = new Map(input, 54, 54);

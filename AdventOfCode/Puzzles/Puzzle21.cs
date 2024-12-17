@@ -2,7 +2,12 @@ namespace AdventOfCode.Puzzles;
 
 public class Puzzle21 : PuzzleBase
 {
-    override protected bool ReportProgress => true;
+    readonly int _blinks;
+
+    public Puzzle21(int blinks)
+    {
+        _blinks = blinks;
+    }
 
     protected override string Solution(string input)
     {
@@ -10,10 +15,10 @@ public class Puzzle21 : PuzzleBase
             .Select(long.Parse)
             .ToList();
 
-        for (var i = 0; i < 25; i++)
+        for (var i = 0; i < _blinks; i++)
         {
             Blink(stones);
-            SetProgress((i + 1) / 25);
+            SetProgress((i + 1) / _blinks);
         }
 
         return stones.Count.ToString();
