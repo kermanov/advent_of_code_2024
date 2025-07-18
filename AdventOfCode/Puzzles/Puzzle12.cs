@@ -2,7 +2,7 @@ using System.Collections.Concurrent;
 
 namespace AdventOfCode.Puzzles;
 
-public class Puzzle12 : PuzzleBase
+public class Puzzle12 : PuzzleBaseWithProgress
 {
     protected override string Solution(string input)
     {

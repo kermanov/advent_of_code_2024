@@ -1,6 +1,6 @@
 namespace AdventOfCode.Puzzles;
 
-public class Puzzle13 : PuzzleBase
+public class Puzzle13 : PuzzleBaseWithProgress
 {
     protected override string Solution(string input)
     {

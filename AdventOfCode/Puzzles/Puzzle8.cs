@@ -1,6 +1,6 @@
 namespace AdventOfCode.Puzzles;
 
-public class Puzzle8 : PuzzleBase
+public class Puzzle8 : PuzzleBaseWithProgress
 {
     readonly (int X, int Y)[] directions = 
     [

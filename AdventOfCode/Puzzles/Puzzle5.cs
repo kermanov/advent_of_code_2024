@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode.Puzzles;
 
-public class Puzzle5 : PuzzleBase
+public class Puzzle5 : PuzzleBaseWithProgress
 {
     protected override string Solution(string input)
     {

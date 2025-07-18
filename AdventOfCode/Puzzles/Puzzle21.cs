@@ -1,6 +1,6 @@
 namespace AdventOfCode.Puzzles;
 
-public class Puzzle21 : PuzzleBase
+public class Puzzle21 : PuzzleBaseWithProgress
 {
     readonly int _blinks;
 

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Puzzles;
 
-public class Puzzle23 : PuzzleBase
+public class Puzzle23 : PuzzleBaseWithProgress
 {
     int _progress = 0;
 

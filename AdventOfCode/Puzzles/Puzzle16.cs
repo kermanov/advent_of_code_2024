@@ -2,7 +2,7 @@ using System;
 
 namespace AdventOfCode.Puzzles;
 
-public class Puzzle16 : PuzzleBase
+public class Puzzle16 : PuzzleBaseWithProgress
 {
     protected override string Solution(string input)
     {
